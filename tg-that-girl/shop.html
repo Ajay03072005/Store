@@ -238,14 +238,14 @@
     </footer>
     <script>
         const products = [
-            { id: 1, name: 'Elegant Necklace', price: 120, category: 'necklaces', img: 'images/necklace.png' },
-            { id: 2, name: 'Minimal Bracelet', price: 80, category: 'bracelets', img: 'images/brace.png' },
-            { id: 3, name: 'Feminine Earrings', price: 95, category: 'earrings', img: 'images/earing.png' },
-            { id: 4, name: 'Classic Gold Ring', price: 150, category: 'rings', img: 'images/ring.png' },
-            { id: 5, name: 'Pearl Drop Earrings', price: 110, category: 'earrings', img: 'images/earrings.jpg' },
-            { id: 6, name: 'Layered Necklace', price: 135, category: 'necklaces', img: 'images/neck.png' },
-            { id: 7, name: 'Charm Bracelet', price: 90, category: 'bracelets', img: 'images/br.png' },
-            { id: 8, name: 'Stackable Rings Set', price: 180, category: 'rings', img: 'images/Ringset.png' },
+            { id: 1, name: 'Elegant Necklace', price: 9900, category: 'necklaces', img: 'images/necklace.png' },
+            { id: 2, name: 'Minimal Bracelet', price: 6600, category: 'bracelets', img: 'images/brace.png' },
+            { id: 3, name: 'Feminine Earrings', price: 7800, category: 'earrings', img: 'images/earing.png' },
+            { id: 4, name: 'Classic Gold Ring', price: 12400, category: 'rings', img: 'images/ring.png' },
+            { id: 5, name: 'Pearl Drop Earrings', price: 9100, category: 'earrings', img: 'images/earrings.jpg' },
+            { id: 6, name: 'Layered Necklace', price: 11100, category: 'necklaces', img: 'images/neck.png' },
+            { id: 7, name: 'Charm Bracelet', price: 6900, category: 'bracelets', img: 'images/br.png' },
+            { id: 8, name: 'Stackable Rings Set', price: 13800, category: 'rings', img: 'images/Ringset.png' },
         ];
         function addToCart(productId) {
             let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -308,7 +308,7 @@
                     + '<button class="wishlist-btn' + (isWish ? ' active' : '') + '" onclick="toggleWishlist(' + p.id + ')">' + (isWish ? '♥' : '♡') + '</button>'
                     + '<img src="' + p.img + '" alt="' + p.name + '">' 
                     + '<h3>' + p.name + '</h3>'
-                    + '<p>$' + p.price + '</p>'
+                    + '<p>₹' + p.price.toLocaleString('en-IN') + '</p>'
                     + '<div class="button-row">'
                         + '<button onclick="addToCart(' + p.id + ')">Add to Cart</button>'
                         + '<a href="product-details.html?id=' + p.id + '" style="background:#fff;color:#bfa77a;border:1px solid #bfa77a;padding:0.7rem 1.2rem;border-radius:30px;font-weight:600;font-size:1rem;text-decoration:none;">More Info</a>'

@@ -59,18 +59,18 @@
                 total += subtotal;
                 return `<tr style="border-bottom:1px solid #f0e6e0;">
                     <td style="padding:8px 4px;"><img src="${item.img}" alt="${item.name}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:10px;vertical-align:middle;">${item.name}</td>
-                    <td style="text-align:center;">$${item.price}</td>
+                    <td style="text-align:center;">₹${item.price.toLocaleString('en-IN')}</td>
                     <td style="text-align:center;">
                         <button onclick="updateQty(${item.id},-1)" style="padding:2px 8px;margin-right:4px;">-</button>
                         ${item.qty}
                         <button onclick="updateQty(${item.id},1)" style="padding:2px 8px;margin-left:4px;">+</button>
                     </td>
-                    <td style="text-align:center;">$${subtotal}</td>
+                    <td style="text-align:center;">₹${subtotal.toLocaleString('en-IN')}</td>
                     <td style="text-align:center;"><button onclick="removeFromCart(${item.id})" style="color:#bfa77a;background:none;border:none;cursor:pointer;">Remove</button></td>
                 </tr>`;
             }).join('')
             + '</tbody></table>';
-        cartTotalDiv.textContent = 'Total: $' + total;
+        cartTotalDiv.textContent = 'Total: ₹' + total.toLocaleString('en-IN');
         checkoutBtn.disabled = false;
     }
 

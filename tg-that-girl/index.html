@@ -203,19 +203,19 @@
                 <div class="product card">
                     <img src="https://media.istockphoto.com/id/2212704901/photo/premium-gemstone-necklace-styled-on-luxurious-green-cloth-background.jpg?s=2048x2048&w=is&k=20&c=cY034D3D1gekZ9-7AKqLpigcJOFkclJ8hG3QdIbwwIw=" alt="Elegant Necklace">
                     <h3>Elegant Necklace</h3>
-                    <p>$120</p>
+                    <p><span class="inr-price" data-price="9999"></span></p>
                     <button class="view-btn" onclick="showModal(0)">View Details</button>
                 </div>
                 <div class="product card">
                     <img src="images/br.png" alt="Minimal Bracelet">
                     <h3>Minimal Bracelet</h3>
-                    <p>$80</p>
+                    <p><span class="inr-price" data-price="6699"></span></p>
                     <button class="view-btn" onclick="showModal(1)">View Details</button>
                 </div>
                 <div class="product card">
                     <img src="images/earrings.jpg" alt="Feminine Earrings">
                     <h3>Feminine Earrings</h3>
-                    <p>$95</p>
+                    <p><span class="inr-price" data-price="7999"></span></p>
                     <button class="view-btn" onclick="showModal(2)">View Details</button>
                 </div>
             </div>
@@ -278,29 +278,29 @@
         {
             img: "https://media.istockphoto.com/id/2212704901/photo/premium-gemstone-necklace-styled-on-luxurious-green-cloth-background.jpg?s=2048x2048&w=is&k=20&c=cY034D3D1gekZ9-7AKqLpigcJOFkclJ8hG3QdIbwwIw=",
             title: "Elegant Necklace",
-            price: "$120",
+            price: 9999, // INR
             desc: "A premium gemstone necklace, handmade with exquisite attention to detail. Perfect for elevating any outfit with a touch of elegance. Material: 18k gold-plated, natural gemstones. Length: 18 inches."
         },
         {
             img: "images/br.png",
             title: "Minimal Bracelet",
-            price: "$80",
+            price: 6699, // INR
             desc: "A minimal, feminine bracelet crafted for everyday wear. Lightweight, adjustable, and perfect for stacking. Material: Sterling silver with gold finish. Size: Adjustable."
         },
         {
             img: "images/earrings.jpg",
             title: "Feminine Earrings",
-            price: "$95",
+            price: 7999, // INR
             desc: "Delicate earrings designed to add a refined touch to your look. Handmade with hypoallergenic materials. Drop: 2 inches."
         }
     ];
     function showModal(idx) {
-        const p = featuredProducts[idx];
-        document.getElementById('modalImg').src = p.img;
-        document.getElementById('modalTitle').textContent = p.title;
-        document.getElementById('modalPrice').textContent = p.price;
-        document.getElementById('modalDesc').textContent = p.desc;
-        document.getElementById('modalBg').classList.add('active');
+    const p = featuredProducts[idx];
+    document.getElementById('modalImg').src = p.img;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalPrice').textContent = `₹${p.price.toLocaleString('en-IN')}`;
+    document.getElementById('modalDesc').textContent = p.desc;
+    document.getElementById('modalBg').classList.add('active');
     }
     function closeModal() {
         document.getElementById('modalBg').classList.remove('active');
@@ -309,6 +309,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modalBg').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
+        });
+        // Format INR prices on featured products
+        document.querySelectorAll('.inr-price').forEach(function(el) {
+            const price = parseInt(el.getAttribute('data-price'), 10);
+            el.textContent = `₹${price.toLocaleString('en-IN')}`;
         });
     });
     </script>
