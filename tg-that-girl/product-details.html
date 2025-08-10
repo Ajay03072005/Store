@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | TG THAT GIRL</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .details-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: #fffefb;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(191, 167, 122, 0.13);
+            padding: 2.5rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .details-container img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .details-container h2 {
+            color: #bfa77a;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.7rem;
+        }
+        .details-container .price {
+            color: #bfa77a;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .details-container .desc {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+        .details-container .action-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .details-container .add-cart-btn {
+            background: #bfa77a;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 0.7rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .details-container .add-cart-btn:hover {
+            background: #a08b5c;
+            color: #fff;
+        }
+        .details-container .back-btn {
+            background: #fff;
+            color: #bfa77a;
+            border: 1px solid #bfa77a;
+            border-radius: 30px;
+            padding: 0.7rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+        .details-container .back-btn:hover {
+            background: #bfa77a;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="logo">TG THAT GIRL</div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart">Cart</a>
+                <a href="wishlist.html" style="color:#e74c3c;font-weight:700;">Wishlist</a>
+            </nav>
+        </div>
+    </header>
+    <div class="details-container" id="detailsContainer">
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TG THAT GIRL. All rights reserved.</p>
+            <div class="social">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+    const products = [
+        { id: 1, name: 'Elegant Necklace', price: 120, img: 'images/necklace.png', desc: 'A premium gemstone necklace, handmade with exquisite attention to detail. Material: 18k gold-plated, natural gemstones. Length: 18 inches.' },
+        { id: 2, name: 'Minimal Bracelet', price: 80, img: 'images/brace.png', desc: 'A minimal, feminine bracelet crafted for everyday wear. Lightweight, adjustable, and perfect for stacking. Material: Sterling silver with gold finish.' },
+        { id: 3, name: 'Feminine Earrings', price: 95, img: 'images/earing.png', desc: 'Delicate earrings designed to add a refined touch to your look. Handmade with hypoallergenic materials. Drop: 2 inches.' },
+        { id: 4, name: 'Classic Gold Ring', price: 150, img: 'images/ring.png', desc: 'Classic gold ring, timeless and elegant. Material: 18k gold-plated. Size: 6-8 adjustable.' },
+        { id: 5, name: 'Pearl Drop Earrings', price: 110, img: 'images/earrings.jpg', desc: 'Pearl drop earrings for a sophisticated look. Material: Freshwater pearls, gold-plated hooks.' },
+        { id: 6, name: 'Layered Necklace', price: 135, img: 'images/neck.png', desc: 'Layered necklace set for a trendy, chic style. Material: Gold-plated, adjustable length.' },
+        { id: 7, name: 'Charm Bracelet', price: 90, img: 'images/br.png', desc: 'Fun and stylish charm bracelet. Material: Sterling silver, gold finish, assorted charms.' },
+        { id: 8, name: 'Stackable Rings Set', price: 180, img: 'images/Ringset.png', desc: 'Set of stackable rings for versatile styling. Material: Gold-plated, set of 5.' },
+    ];
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+    function renderDetails() {
+        const id = parseInt(getQueryParam('id'));
+        const p = products.find(prod => prod.id === id);
+        const container = document.getElementById('detailsContainer');
+        if (!p) {
+            container.innerHTML = '<p>Product not found.</p>';
+            return;
+        }
+        container.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <h2>${p.name}</h2>
+            <div class="price">$${p.price}</div>
+            <div class="desc">${p.desc}</div>
+            <div class="action-row">
+                <button class="add-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+                <a href="shop.html" class="back-btn">Back to Shop</a>
+            </div>
+        `;
+    function addToCart(productId) {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const product = products.find(p => p.id === productId);
+        const existing = cart.find(item => item.id === productId);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push(Object.assign({}, product, { qty: 1 }));
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(product.name + ' added to cart!');
+    }
+    }
+    window.onload = renderDetails;
+    </script>
+</body>
+</html>

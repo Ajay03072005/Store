@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG THAT GIRL | Handmade Jewelry</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+    .modal-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-bg.active { display: flex; }
+    .modal {
+        background: #fff;
+        border-radius: 18px;
+        max-width: 400px;
+        width: 90vw;
+        box-shadow: 0 8px 32px rgba(191,167,122,0.18);
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        position: relative;
+        animation: fadeInUp 0.4s;
+    }
+    .modal img { width: 100%; border-radius: 12px; margin-bottom: 1rem; }
+    .modal h3 { color: #bfa77a; font-family: 'Playfair Display',serif; margin-bottom: 0.5rem; }
+    .modal .close-btn {
+        position: absolute;
+        top: 10px; right: 18px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #bfa77a;
+        cursor: pointer;
+    }
+    body {
+        font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .logo {
+        font-family: 'Playfair Display', serif;
+    }
+    .hero {
+        background: linear-gradient(rgba(255,250,248,0.92), rgba(255,250,248,0.92)), url('images/hero-bg.jpg') center/cover no-repeat;
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at 60% 40%, #fff6e6 0%, transparent 70%);
+        opacity: 0.7;
+        pointer-events: none;
+        z-index: 1;
+        animation: heroGlow 6s ease-in-out infinite alternate;
+    }
+    @keyframes heroGlow {
+        0% { opacity: 0.7; }
+        100% { opacity: 1; }
+    }
+    .hero .container {
+        position: relative;
+        z-index: 2;
+    }
+    nav a {
+        position: relative;
+        padding-bottom: 4px;
+    }
+    nav a:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #bfa77a 0%, #fffaf8 100%);
+        transition: width 0.3s;
+    }
+    nav a:hover:after, nav a.active:after {
+        width: 100%;
+    }
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s forwards cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in[style*="animation-delay:0.3s"] { animation-delay: 0.3s; }
+    .fade-in[style*="animation-delay:0.6s"] { animation-delay: 0.6s; }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+    .card {
+        box-shadow: 0 4px 24px rgba(191, 167, 122, 0.13);
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1px solid #f0e6e0;
+        position: relative;
+        background: #fffefb;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    .card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(191, 167, 122, 0.18);
+        z-index: 2;
+        border-color: #bfa77a;
+    }
+    .view-btn, .cta {
+        display: inline-block;
+        margin-top: 1rem;
+        background: linear-gradient(90deg, #bfa77a 60%, #fff6e6 100%);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 0.8rem 2.2rem;
+        font-weight: 700;
+        font-size: 1.08rem;
+        text-decoration: none;
+        box-shadow: 0 2px 12px rgba(191, 167, 122, 0.10);
+        letter-spacing: 0.5px;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+    }
+    .view-btn:hover, .cta:hover {
+        background: #bfa77a;
+        color: #fff;
+        box-shadow: 0 4px 24px rgba(191, 167, 122, 0.18);
+    }
+    section {
+        position: relative;
+    }
+    section:not(:last-of-type):after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #bfa77a 0%, #fffaf8 100%);
+        margin: 2.5rem auto 0 auto;
+        border-radius: 2px;
+        opacity: 0.15;
+    }
+    footer {
+        background: linear-gradient(90deg, #fffaf8 60%, #f8f4f0 100%);
+        border-top: none;
+        box-shadow: 0 -2px 16px rgba(191, 167, 122, 0.07);
+    }
+    header {
+        box-shadow: 0 2px 16px rgba(191, 167, 122, 0.07);
+    }
+    @media (max-width: 700px) {
+        .products {
+            flex-direction: column;
+            align-items: center;
+        }
+        .product.card {
+            width: 95vw;
+            margin-bottom: 1.5rem;
+        }
+        .hero {
+            min-height: 40vh;
+            padding: 2rem 0;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="logo">TG THAT GIRL</div>
+            <nav>
+                <a href="index.html" class="active">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart">Cart</a>
+                <a href="wishlist.html" style="color:#e74c3c;font-weight:700;">Wishlist</a>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in" style="font-size:2.8rem;letter-spacing:1px;">Handmade Elegance for the Modern Woman</h1>
+            <p class="fade-in" style="animation-delay:0.3s;font-size:1.25rem;max-width:500px;margin:0 auto 1.5rem auto;">Discover premium, minimal, and feminine jewelry crafted with care. Elevate your everyday with timeless pieces.</p>
+            <a href="shop.html" class="cta fade-in" style="animation-delay:0.6s">Shop Now</a>
+        </div>
+    </section>
+    <section class="featured" id="shop">
+        <div class="container">
+            <h2>Featured Collection</h2>
+            <div class="products">
+                <div class="product card">
+                    <img src="https://media.istockphoto.com/id/2212704901/photo/premium-gemstone-necklace-styled-on-luxurious-green-cloth-background.jpg?s=2048x2048&w=is&k=20&c=cY034D3D1gekZ9-7AKqLpigcJOFkclJ8hG3QdIbwwIw=" alt="Elegant Necklace">
+                    <h3>Elegant Necklace</h3>
+                    <p>$120</p>
+                    <button class="view-btn" onclick="showModal(0)">View Details</button>
+                </div>
+                <div class="product card">
+                    <img src="images/br.png" alt="Minimal Bracelet">
+                    <h3>Minimal Bracelet</h3>
+                    <p>$80</p>
+                    <button class="view-btn" onclick="showModal(1)">View Details</button>
+                </div>
+                <div class="product card">
+                    <img src="images/earrings.jpg" alt="Feminine Earrings">
+                    <h3>Feminine Earrings</h3>
+                    <p>$95</p>
+                    <button class="view-btn" onclick="showModal(2)">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About TG THAT GIRL</h2>
+            <p style="font-size:1.13rem;max-width:600px;margin:0 auto 1.5rem auto;">Our jewelry is designed for women who appreciate elegance, minimalism, and refined craftsmanship. Each piece is handmade with love and attention to detail.</p>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form style="max-width:400px;margin:0 auto;">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta" style="margin-top:1rem;">Send</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+    <!-- Product Details Modal -->
+    <div class="modal-bg" id="modalBg">
+        <div class="modal" id="modalBox">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <img id="modalImg" src="" alt="" />
+            <h3 id="modalTitle"></h3>
+            <p id="modalPrice" style="font-weight:600;color:#bfa77a;"></p>
+            <p id="modalDesc" style="margin-top:1rem;font-size:1.08rem;color:#444;"></p>
+        </div>
+    </div>
+        <div class="container">
+            <p>&copy; 2025 TG THAT GIRL. All rights reserved.</p>
+            <div class="social">
+                <a href="#" style="font-size:1.2rem;margin:0 1rem;">Instagram</a>
+                <a href="#" style="font-size:1.2rem;margin:0 1rem;">Pinterest</a>
+            </div>
+        </div>
+    <section class="testimonials" style="background:#fffaf8;padding:3rem 0 2rem 0;">
+        <div class="container" style="max-width:700px;">
+            <h2 style="text-align:center;color:#bfa77a;font-family:'Playfair Display',serif;margin-bottom:2rem;">What Our Customers Say</h2>
+            <div style="display:flex;flex-direction:column;gap:2rem;">
+                <div style="background:#fff;border-radius:14px;padding:1.5rem 2rem;box-shadow:0 2px 12px rgba(191,167,122,0.07);">
+                    <p style="font-size:1.1rem;font-style:italic;">“Absolutely stunning pieces! The quality and elegance are unmatched. I feel so special wearing TG THAT GIRL jewelry.”</p>
+                    <div style="text-align:right;font-weight:600;color:#bfa77a;">— Priya S.</div>
+                </div>
+                <div style="background:#fff;border-radius:14px;padding:1.5rem 2rem;box-shadow:0 2px 12px rgba(191,167,122,0.07);">
+                    <p style="font-size:1.1rem;font-style:italic;">“Minimal, feminine, and so refined. I get compliments every time I wear my bracelet!”</p>
+                    <div style="text-align:right;font-weight:600;color:#bfa77a;">— Ayesha K.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </footer>
+    <script>
+    // Product details for modal
+    const featuredProducts = [
+        {
+            img: "https://media.istockphoto.com/id/2212704901/photo/premium-gemstone-necklace-styled-on-luxurious-green-cloth-background.jpg?s=2048x2048&w=is&k=20&c=cY034D3D1gekZ9-7AKqLpigcJOFkclJ8hG3QdIbwwIw=",
+            title: "Elegant Necklace",
+            price: "$120",
+            desc: "A premium gemstone necklace, handmade with exquisite attention to detail. Perfect for elevating any outfit with a touch of elegance. Material: 18k gold-plated, natural gemstones. Length: 18 inches."
+        },
+        {
+            img: "images/br.png",
+            title: "Minimal Bracelet",
+            price: "$80",
+            desc: "A minimal, feminine bracelet crafted for everyday wear. Lightweight, adjustable, and perfect for stacking. Material: Sterling silver with gold finish. Size: Adjustable."
+        },
+        {
+            img: "images/earrings.jpg",
+            title: "Feminine Earrings",
+            price: "$95",
+            desc: "Delicate earrings designed to add a refined touch to your look. Handmade with hypoallergenic materials. Drop: 2 inches."
+        }
+    ];
+    function showModal(idx) {
+        const p = featuredProducts[idx];
+        document.getElementById('modalImg').src = p.img;
+        document.getElementById('modalTitle').textContent = p.title;
+        document.getElementById('modalPrice').textContent = p.price;
+        document.getElementById('modalDesc').textContent = p.desc;
+        document.getElementById('modalBg').classList.add('active');
+    }
+    function closeModal() {
+        document.getElementById('modalBg').classList.remove('active');
+    }
+    // Close modal on background click
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('modalBg').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    });
+    </script>
+</body>
+</html>

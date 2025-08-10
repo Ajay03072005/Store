@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | TG THAT GIRL</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .wishlist-products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .wishlist-product {
+            background: #fffefb;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(191, 167, 122, 0.13);
+            border: 1px solid #f0e6e0;
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            text-align: center;
+            width: 260px;
+            position: relative;
+        }
+        .wishlist-product img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        .wishlist-product h3 {
+            font-family: 'Playfair Display', serif;
+            color: #bfa77a;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .wishlist-product p {
+            font-size: 1.1rem;
+            color: #2d2d2d;
+            margin-bottom: 0.7rem;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="logo">TG THAT GIRL</div>
+            <nav>
+                <a href="index.html" class="active">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="cart.html" class="cart">Cart</a>
+                <a href="wishlist.html" style="color:#e74c3c;font-weight:700;">Wishlist</a>
+            </nav>
+        </div>
+    </header>
+    <section class="featured" id="wishlist">
+        <div class="container">
+            <h2>Your Wishlist</h2>
+            <div class="wishlist-products" id="wishlistProducts">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TG THAT GIRL. All rights reserved.</p>
+            <div class="social">
+                <a href="#">Instagram</a>
+                <a href="#">Pinterest</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+    const products = [
+        { id: 1, name: 'Elegant Necklace', price: 120, category: 'necklaces', img: 'images/necklace.png' },
+        { id: 2, name: 'Minimal Bracelet', price: 80, category: 'bracelets', img: 'images/brace.png' },
+        { id: 3, name: 'Feminine Earrings', price: 95, category: 'earrings', img: 'images/earing.png' },
+        { id: 4, name: 'Classic Gold Ring', price: 150, category: 'rings', img: 'images/ring.png' },
+        { id: 5, name: 'Pearl Drop Earrings', price: 110, category: 'earrings', img: 'images/earrings.jpg' },
+        { id: 6, name: 'Layered Necklace', price: 135, category: 'necklaces', img: 'images/neck.png' },
+        { id: 7, name: 'Charm Bracelet', price: 90, category: 'bracelets', img: 'images/br.png' },
+        { id: 8, name: 'Stackable Rings Set', price: 180, category: 'rings', img: 'images/Ringset.png' },
+    ];
+    function renderWishlist() {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        const wishlistProducts = document.getElementById('wishlistProducts');
+        if (!wishlist.length) {
+            wishlistProducts.innerHTML = '<p>Your wishlist is empty.</p>';
+            return;
+        }
+        wishlistProducts.innerHTML = wishlist.map(function(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return '';
+            return '<div class="wishlist-product">'
+                + '<button class="remove-btn" onclick="removeFromWishlist(' + p.id + ')">×</button>'
+                + '<img src="' + p.img + '" alt="' + p.name + '">' 
+                + '<h3>' + p.name + '</h3>'
+                + '<p>$' + p.price + '</p>'
+                + '</div>';
+        }).join('');
+    }
+    function removeFromWishlist(id) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        wishlist = wishlist.filter(pid => pid !== id);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        renderWishlist();
+    }
+    window.removeFromWishlist = removeFromWishlist;
+    window.onload = renderWishlist;
+    </script>
+</body>
+</html>
